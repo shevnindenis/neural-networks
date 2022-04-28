@@ -1,0 +1,27 @@
+import numpy as np
+
+x1 = np.array([[0,1,2]])
+y = np.array([[1]])
+w1 = np.array([[8,7,8],[10,10,9]])
+w2 = np.array([[10,9]])
+
+def sigmoid(x):
+    return np.exp(x)/(1+np.exp(x))
+
+def sigmoid_derivative(x):
+    return sigmoid(x)*(1-sigmoid(x))
+
+#Forvard_propogation
+z1 = x1.dot(w1.T)
+a1 = sigmoid(z1)
+z2 = a1.dot(w2.T)
+a2 = sigmoid(z2)
+
+#Back_propogation
+Cost_derivative = a2 - y
+delta2 = Cost_derivative*sigmoid_derivative(z2)
+delta1 = delta2.dot(w2)*sigmoid_derivative(z1)
+delta0 = delta1.dot(w1)*sigmoid_derivative(x1)
+
+#partial derivative cost function
+print(delta1[0][0]*x1[0][2], delta1[0][1]*x1[0][2])
